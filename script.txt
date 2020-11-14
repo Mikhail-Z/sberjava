@@ -1,0 +1,8 @@
+javac -d bin lesson01.java
+javac -d bin -classpath bin/lesson01 lesson012.java
+mv bin/* /
+touch MANIFEST.MF
+jar -cxfm lesson01.jar MANIFEST.MF lesson01/* lesson012/*
+java -jar lesson01.jar
+
+//hello, world
