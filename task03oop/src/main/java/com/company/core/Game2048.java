@@ -1,4 +1,4 @@
-package com.company;
+package com.company.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,20 @@ public class Game2048 implements Game {
         List<Integer> values = new ArrayList<>(GAME_SIZE * GAME_SIZE);
         for (int i = 0; i < GAME_SIZE * GAME_SIZE; i++) values.add(null);
         board.fillBoard(values);
-        addItem();
-        addItem();
+        try {
+            addItem();
+            addItem();
+        } catch (GameOverException e) {
+            e.printStackTrace();
+            throw new IllegalStateException(e);
+        }
     }
 
     public boolean canMove() {
         return board.availableSpace().size() > 0;
     }
 
-    public void move(Direction direction) {
+    public void move(Direction direction) throws GameOverException {
         switch (direction) {
             case LEFT:
                 moveLeft();
@@ -52,9 +57,9 @@ public class Game2048 implements Game {
         }
     }
 
-    public void addItem() {
+    public void addItem() throws GameOverException {
         if (!canMove()) {
-            throw new IllegalStateException("Не осталось свободных клеток. Операция добавления числа невозможна");
+            throw new GameOverException();
         }
 
         int newItem = generateInitValue();

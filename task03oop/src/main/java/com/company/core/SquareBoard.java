@@ -1,6 +1,5 @@
-package com.company;
+package com.company.core;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,9 +12,10 @@ public class SquareBoard<V> extends Board<Key, V> {
         this.size = size;
     }
 
-    void fillBoard(List<V> list) {
-        if (list.size() != size * size) {
-            throw new IllegalArgumentException();
+    public void fillBoard(List<V> list) {
+        if (list.size() > size * size) {
+            throw new IllegalArgumentException(
+                    String.format("Размер списка для инциализации игрового поля (%d) больше размера игрового поля (%d)", list.size(), size * size));
         }
 
         super.board.clear();
@@ -27,7 +27,7 @@ public class SquareBoard<V> extends Board<Key, V> {
         }
     }
 
-    List<Key> availableSpace() {
+    public List<Key> availableSpace() {
         return super.board.entrySet().stream()
                 .filter(x -> x.getValue() == null)
                 .map(Map.Entry::getKey)
@@ -38,36 +38,36 @@ public class SquareBoard<V> extends Board<Key, V> {
         super.board.put(key, value);
     }
 
-    Key getKey(int i, int j) {
+    public Key getKey(int i, int j) {
         var foundKey =  super.board.keySet().stream()
                 .filter(integer -> integer.getI() == i && integer.getJ() == j)
                 .findFirst();
         return foundKey.isEmpty() ? null : foundKey.get();
     }
 
-    V getValue(Key key) {
+    public V getValue(Key key) {
         return super.board.get(key);
     }
 
-    List<Key> getColumn(int j) {
+    public List<Key> getColumn(int j) {
         return super.board.keySet().stream()
                 .filter(x -> x.getJ() == j)
                 .sorted((o1, o2) -> o1.getI() < o2.getI() ? -1 : 1)
                 .collect(Collectors.toList());
     }
 
-    List<Key> getRow(int i) {
+    public List<Key> getRow(int i) {
         return super.board.keySet().stream()
                 .filter(y -> y.getI() == i)
                 .sorted((o1, o2) -> o1.getJ() < o2.getJ() ? -1 : 1)
                 .collect(Collectors.toList());
     }
 
-    boolean hasValue(V value) {
+    public boolean hasValue(V value) {
         return super.board.containsValue(value);
     }
 
-    List<V> getValues(List<Key> keys) {
+    public List<V> getValues(List<Key> keys) {
         return keys.stream()
                 .map(key -> super.board.getOrDefault(key, null))
                 .collect(Collectors.toList());

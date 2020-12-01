@@ -1,6 +1,6 @@
-package com.company;
+package com.company.core;
 
-import static com.company.BoardTest.assertEquals;
+import static com.company.core.BoardTest.assertEquals;
 import static java.util.Arrays.*;
 
 public class HelperTest {

@@ -1,13 +1,29 @@
-package com.company;
+package com.company.core;
 import java.util.List;
 
 import static java.util.Arrays.*;
 
+class A {
+
+}
+
+class B implements Comparable<B> {
+
+    @Override
+    public int compareTo(B o) {
+        return 0;
+    }
+}
 public class Game2048Test {
     private final static Game game = new Game2048();
 
+    static void test(List<? extends B> src, List<? super B> dest) {
+        dest.add(src.get(0));
+    }
+
     public static void main(String[] args) {
         Board<Key, String> b2 = new SquareBoard<>(1);
+
         b2.fillBoard(asList("hello"));
         if (!"hello".equals(b2.getValue(b2.getKey(0 ,0)))) throw new RuntimeException("board not work =(");
         if (!b2.hasValue("hello")) throw new RuntimeException("board not work =(");
@@ -26,20 +42,20 @@ public class Game2048Test {
         if (!b.availableSpace().isEmpty()) throw new RuntimeException("Game board must be empty before initialize");
         b.fillBoard(asList(2,null,null,8, 2,2,8,8, 2,null,2,2, 4,2,4,2048));
         if (!game.hasWin()) throw new RuntimeException("hasWin not work =(");
-        game.move(Direction.LEFT);
+        //game.move(Direction.LEFT);
         if (b.availableSpace().size() != 5) throw new RuntimeException("move must be add item");
         assertLists(b.getValues(b.getRow(0)).subList(0,2), asList(2, 8));
         assertLists(b.getValues(b.getRow(1)).subList(0,2), asList(4, 16));
         assertLists(b.getValues(b.getRow(2)).subList(0,2), asList(4, 2));
         assertLists(b.getValues(b.getRow(3)), asList(4, 2, 4, 2048));
-        game.move(Direction.DOWN);
+        //game.move(Direction.DOWN);
         assertLists(b.getValues(b.getColumn(0)).subList(1,4), asList(2, 4, 8));
         assertLists(b.getValues(b.getColumn(1)).subList(1,4), asList(8, 16, 4));
 
         game.init();
         if (b.availableSpace().size() != 14) throw new RuntimeException("init must be add 2 item");
         if (!game.canMove()) throw new RuntimeException("canMove not work =(");
-        game.addItem();
+        //game.addItem();
         if (b.availableSpace().size() != 13) throw new RuntimeException("addItem must be add 1 item");
     }
 
