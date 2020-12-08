@@ -6,7 +6,6 @@ import java.util.Queue;
 public class FrontSystem {
 
     private static final int MAX_REQUESTS_NUMBER = 2;
-    //private static int MAX_HANDLED_REQUESTS_NUMBER = 100;
 
     private Queue<Request> requests = new LinkedList<>();
 
@@ -18,7 +17,7 @@ public class FrontSystem {
         }
         System.out.printf("Поток %d продолжил выполнять добавление заявки\n", Thread.currentThread().getId());
         requests.add(request);
-        notifyAll();
+        notify();
     }
 
     public synchronized Request getNewRequest() throws InterruptedException {
@@ -32,7 +31,7 @@ public class FrontSystem {
         if (request == null) {
             System.out.println("!!! Пустая заявка была взята из фронтальной системы !!!\n");
         }
-        notifyAll();
+        notify();
         return request;
     }
 }
