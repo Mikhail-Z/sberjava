@@ -23,12 +23,6 @@ public class RequestHandler extends Thread {
                 break;
             }
             handleRequest(newRequest);
-            try {
-                sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                break;
-            }
         }
     }
 
