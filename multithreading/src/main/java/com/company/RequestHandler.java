@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.Optional;
-
-public class RequestHandler extends Thread {
+public class RequestHandler implements Runnable {
     private FrontSystem frontSystem;
     private BackSystem backSystem;
 
@@ -32,7 +30,12 @@ public class RequestHandler extends Thread {
             backSystem.add(request.getSum());
         }
         else if (request.getRequestType() == RequestType.Subtract) {
-            backSystem.subtract(request.getSum());
+            try {
+                backSystem.waitAndSubtract(request.getSum());
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

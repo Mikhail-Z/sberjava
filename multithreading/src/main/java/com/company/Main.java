@@ -1,33 +1,31 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     private static int CLIENT_COUNT = 20;
+    private static int THREAD_COUNT = 4;
     private static int HANDLER_COUNT = 4;
 
     public static void main(String[] args) throws InterruptedException {
         FrontSystem frontSystem = new FrontSystem();
-        BackSystem backSystem = new BackSystem();
-        List<Client> clients = new ArrayList<>();
+        ExecutorService clientsExecutorService = Executors.newFixedThreadPool(THREAD_COUNT);
+
         for (int i = 0; i < CLIENT_COUNT; i++) {
-            Client client = new Client(frontSystem);
-            client.start();
-            clients.add(client);
+            clientsExecutorService.submit(new Client(frontSystem));
         }
 
-        List<RequestHandler> handlers = new ArrayList<>();
+        BackSystem backSystem = new BackSystem();
+        ExecutorService handlersExecutorService = Executors.newFixedThreadPool(THREAD_COUNT);
+
         for (int i = 0; i < HANDLER_COUNT; i++) {
-            RequestHandler requestHandler = new RequestHandler(frontSystem, backSystem);
-            requestHandler.start();
-            handlers.add(requestHandler);
-        }
-
-        System.out.println("all clients are runnable");
-
-        for (Client client : clients) {
-            client.join();
+            handlersExecutorService.submit(new RequestHandler(frontSystem, backSystem));
         }
 
         System.out.println("the end...");

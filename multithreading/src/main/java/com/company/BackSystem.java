@@ -1,23 +1,41 @@
 package com.company;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class BackSystem {
     private int balance = 0;
+    private Lock lock = new ReentrantLock();
+    private Condition balanceIncreased = lock.newCondition();
 
-    public synchronized boolean add(int sum) {
+    public boolean add(int sum) {
         System.out.printf("Увеличиваю баланс на %d. Текущий баланс: %d\n", sum, balance);
-        balance += sum;
+        lock.lock();
+        try {
+            balance += sum;
+            balanceIncreased.signalAll();
+        }
+        finally {
+            lock.unlock();
+        }
         System.out.printf("Новый баланс: %d\n", balance);
         return true;
     }
 
-    public synchronized boolean subtract(int sum) {
+    public boolean waitAndSubtract(int sum) throws InterruptedException {
         System.out.printf("Уменьшаю баланс на %d. Текущий баланс: %d\n", sum, balance);
-        if (balance - sum >= 0) {
+        lock.lock();
+        try {
+            while (balance - sum < 0) {
+                balanceIncreased.await();
+            }
             balance -= sum;
             System.out.printf("Новый баланс: %d\n", balance);
             return true;
         }
-        System.out.println("Недостаточно средств на счете при попытке уменьшить баланс");
-        return false;
+        finally {
+            lock.unlock();
+        }
     }
 }

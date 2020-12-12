@@ -3,7 +3,7 @@ package com.company;
 import java.time.Instant;
 import java.util.Random;
 
-public class Client extends Thread {
+public class Client implements Runnable {
     private FrontSystem frontSystem;
     private Random random = new Random();
 
