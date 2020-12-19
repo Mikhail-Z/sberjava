@@ -17,9 +17,9 @@ public class BackSystem {
             balanceIncreased.signalAll();
         }
         finally {
+            System.out.printf("Новый баланс: %d\n", balance);
             lock.unlock();
         }
-        System.out.printf("Новый баланс: %d\n", balance);
         return true;
     }
 
@@ -31,10 +31,10 @@ public class BackSystem {
                 balanceIncreased.await();
             }
             balance -= sum;
-            System.out.printf("Новый баланс: %d\n", balance);
             return true;
         }
         finally {
+            System.out.printf("Новый баланс: %d\n", balance);
             lock.unlock();
         }
     }

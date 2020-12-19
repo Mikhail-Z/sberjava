@@ -13,7 +13,7 @@ public class Main {
     private static int THREAD_COUNT = 4;
     private static int HANDLER_COUNT = 4;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         FrontSystem frontSystem = new FrontSystem();
         ExecutorService clientsExecutorService = Executors.newFixedThreadPool(THREAD_COUNT);
 
