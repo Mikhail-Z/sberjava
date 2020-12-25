@@ -6,6 +6,10 @@ import java.time.format.{DateTimeFormatter, DateTimeFormatterBuilder}
  * Считать из файла hdata_stock.csv данные в буфер
  * Преобразовать считанные данные в Tuple5
  * Вывести построчно в консоль считанные полученный результат
+ *
+ * Используя решение задачи CollectionIssueThree.scala необходимо
+ * посчитать среднюю стоимость акции компании за указанный в файле
+ * период
  */
 object CollectionIssueThree {
 
