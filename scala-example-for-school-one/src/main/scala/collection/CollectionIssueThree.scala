@@ -1,6 +1,9 @@
 package collection
-import java.time.LocalDate
+import java.time.{LocalDate, LocalDateTime}
 import java.time.format.{DateTimeFormatter, DateTimeFormatterBuilder}
+
+import scala.collection.immutable.LinearSeq
+import scala.collection.{immutable, mutable}
 
 /**
  * Считать из файла hdata_stock.csv данные в буфер
@@ -36,6 +39,8 @@ object CollectionIssueThree {
         .map(s => s.trim)
         .collect{ case Array(col1, col2, col3, col4, col5) => (col1, col2, col3, col4, col5)}
       }*/
+
+    //immutable.ListMap
     bufferedSource.close
     stockInfoLines
   }
@@ -45,7 +50,7 @@ object CollectionIssueThree {
       .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yyyy kk:mm"))
       .appendOptional(DateTimeFormatter.ofPattern("M/dd/yyyy kk:mm:ss"))
       .toFormatter();
-    val dt = LocalDate.parse(stocksInfoPerDay._1, dft)
+    val dt = LocalDateTime.parse(stocksInfoPerDay._1, dft)
     (dt,
       BigDecimal(stocksInfoPerDay._2),
       BigDecimal(stocksInfoPerDay._3),
@@ -59,13 +64,12 @@ object CollectionIssueThree {
 
   def getAvgStocksPrice(stockPrices: Array[Tuple4[BigDecimal, BigDecimal, BigDecimal, BigDecimal]]) = {
     val initAcc = (BigDecimal(0), BigDecimal(0), BigDecimal(0), BigDecimal(0))
-    val sum = stockPrices.scanLeft(initAcc){
+    val sum = stockPrices.foldLeft(initAcc){
       case ((acc1, acc2, acc3, acc4), (value1, value2, value3, value4)) => (
         value1 + acc1,
         value2 + acc2,
         value3 + acc3,
         value4 + acc4)}
-      .last
     (sum._1/stockPrices.length, sum._2/BigDecimal(stockPrices.length), sum._3/stockPrices.length, stockPrices.length)
   }
 }
