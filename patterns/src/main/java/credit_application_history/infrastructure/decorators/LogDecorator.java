@@ -5,7 +5,12 @@ import credit_application_history.core.entities.Event;
 import credit_application_history.core.services.IHistoryService;
 import credit_application_history.infrastructure.services.LogService;
 
+
+
 import java.util.UUID;
+
+
+
 
 public class LogDecorator implements IHistoryService {
 
