@@ -10,11 +10,16 @@ public class Game2048 implements Game {
     private static final int RANDOM_VALUE_WHEN_FOUR_INIT_VALUE_GENERATED = 0;
     private static final int TWO_INIT_VALUE = 2;
     private static final int FOUR_INIT_VALUE = 4;
-    private static final int WIN_VALUE = 2048;
+    public static final int WIN_VALUE = 2048;
 
-    private final Board<Key, Integer> board = new SquareBoard<>(GAME_SIZE);
+    public Game2048(Board<Key, Integer> board, GameHelper helper) {
+        this.board = board;
+        this.helper = helper;
+    }
 
-    GameHelper helper = new GameHelper();
+    private final Board<Key, Integer> board;
+
+    private final GameHelper helper;
     Random random = new Random();
 
     public void init() {

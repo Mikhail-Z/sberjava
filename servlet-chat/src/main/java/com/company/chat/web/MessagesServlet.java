@@ -7,7 +7,7 @@ import com.company.chat.model.Message;
 import com.company.chat.model.User;
 import com.company.chat.services.MessagesFlowManager;
 import com.company.chat.services.implementations.MessagesFlowManagerImpl;
-import com.company.common.exceptions.InternalServerError;
+import com.company.common.exceptions.ApplicationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -29,7 +29,7 @@ public class MessagesServlet extends HttpServlet {
 
     private final AuthService authService = CookieAuthService.getInstance();
 
-    public MessagesServlet() throws InternalServerError {
+    public MessagesServlet() throws ApplicationException {
         super();
     }
 
@@ -38,7 +38,7 @@ public class MessagesServlet extends HttpServlet {
         Optional<User> user;
         try {
             user = validateUser(req);
-        } catch (InternalServerError e) {
+        } catch (ApplicationException e) {
             req.setAttribute("errorMessage", "internal server error");
             req.getRequestDispatcher(VIEW_PATH).forward(req, resp);
             return;
@@ -64,7 +64,7 @@ public class MessagesServlet extends HttpServlet {
         try {
             user = validateUser(req);
         }
-        catch (InternalServerError e) {
+        catch (ApplicationException e) {
             req.setAttribute("errorMessage", "internal server error");
             req.getRequestDispatcher(VIEW_PATH).forward(req, resp);
             return;
@@ -81,7 +81,7 @@ public class MessagesServlet extends HttpServlet {
         try {
             messagesFlowManager.publishMessage(message);
         }
-        catch (InternalServerError e) {
+        catch (ApplicationException e) {
             req.setAttribute("errorMessage", "internal server error");
             req.getRequestDispatcher(VIEW_PATH).forward(req, resp);
             return;
@@ -89,21 +89,11 @@ public class MessagesServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/messages");
     }
 
-    private Optional<User> validateUser(HttpServletRequest req) throws InternalServerError {
+    private Optional<User> validateUser(HttpServletRequest req) throws ApplicationException {
         Optional<Cookie> authCookie = AuthUtils.getAuthCookie(req);
-        if (!authCookie.isPresent()) {
-            return Optional.empty();
-        }
+        if (!authCookie.isPresent()) throw new ApplicationException();
 
-        UUID userId;
-        try {
-            userId = UUID.fromString(authCookie.get().getValue());
-        }
-        catch (IllegalArgumentException e) {
-            return Optional.empty();
-        }
-
-        return authService.authenticate(userId);
+        return authService.authenticate(UUID.fromString(authCookie.get().getValue()));
     }
 }
 

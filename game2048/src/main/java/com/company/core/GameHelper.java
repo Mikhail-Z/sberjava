@@ -12,7 +12,7 @@ public class GameHelper {
      * @param list список значений
      * @return список обновленных значений
      */
-    List<Integer> moveAndMergeEqual(List<Integer> list) {
+    public List<Integer> moveAndMergeEqual(List<Integer> list) {
         List<Integer> mergedList = mergeNotNulls(list);
         List<Integer> movedMergedList = moveNotNulls(mergedList);
 
@@ -54,10 +54,9 @@ public class GameHelper {
             } else if (leftValue.equals(rightValue)) {
                 newList.set(i, leftValue + rightValue);
                 newList.set(j, null);
-                i = j + 1;
-                j = i + 1;
+                j++;
             } else {
-                i++;
+                i = j;
                 j++;
             }
         }

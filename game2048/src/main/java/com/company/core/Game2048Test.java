@@ -15,7 +15,7 @@ class B implements Comparable<B> {
     }
 }
 public class Game2048Test {
-    private final static Game game = new Game2048();
+    private final static Game game = new Game2048(new SquareBoard<>(Game2048.GAME_SIZE), new GameHelper());
 
     static void test(List<? extends B> src, List<? super B> dest) {
         dest.add(src.get(0));

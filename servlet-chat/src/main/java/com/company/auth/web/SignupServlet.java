@@ -5,7 +5,7 @@ import com.company.auth.services.AuthService;
 import com.company.auth.services.implementations.CookieAuthService;
 import com.company.auth.utils.AuthUtils;
 import com.company.chat.model.User;
-import com.company.common.exceptions.InternalServerError;
+import com.company.common.exceptions.ApplicationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +16,7 @@ import java.io.IOException;
 public class SignupServlet extends HttpServlet {
     private final AuthService authService = CookieAuthService.getInstance();
 
-    public SignupServlet() throws InternalServerError {
+    public SignupServlet() throws ApplicationException {
         super();
     }
 
@@ -29,9 +29,10 @@ public class SignupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        boolean isAdmin = req.getParameter("isAdmin") != null;
         String errorMsg;
         try {
-            User user = authService.signUp(login, password);
+            User user = authService.signUp(login, password, isAdmin);
             req.getSession().setAttribute("currentUser", user);
             String successUrl = req.getContextPath() + "/messages";
             resp.addCookie(AuthUtils.createAuthCookie(req, user));
@@ -42,7 +43,7 @@ public class SignupServlet extends HttpServlet {
             req.setAttribute("errorMessage", errorMsg);
             req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
-        catch (InternalServerError e) {
+        catch (ApplicationException e) {
             errorMsg = "internal system error, try later...";
             req.setAttribute("errorMessage", errorMsg);
             req.getRequestDispatcher("/login.jsp").forward(req, resp);

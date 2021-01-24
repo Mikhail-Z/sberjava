@@ -8,10 +8,12 @@ import java.util.UUID;
 public class User implements Serializable {
     private final UUID id;
     private final String name;
+    private final boolean isAdmin;
 
     public User(AuthUser user) {
         id = user.getId();
         name = user.getLogin();
+        isAdmin = user.isAdmin();
     }
 
     public UUID getId() {
@@ -20,5 +22,9 @@ public class User implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 }

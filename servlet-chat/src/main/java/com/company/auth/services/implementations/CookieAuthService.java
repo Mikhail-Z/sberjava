@@ -8,7 +8,7 @@ import com.company.auth.repositories.AuthUsersRepository;
 import com.company.auth.repositories.implementations.UsersFileRepository;
 import com.company.auth.services.AuthService;
 import com.company.chat.model.User;
-import com.company.common.exceptions.InternalServerError;
+import com.company.common.exceptions.ApplicationException;
 import com.company.common.exceptions.RepositoryException;
 
 import java.util.Optional;
@@ -21,7 +21,7 @@ public class CookieAuthService implements AuthService {
 
     private CookieAuthService() throws RepositoryException {}
 
-    public static synchronized CookieAuthService getInstance() throws InternalServerError {
+    public static synchronized CookieAuthService getInstance() throws ApplicationException {
         if (authService == null) {
             authService = new CookieAuthService();
         }
@@ -30,7 +30,7 @@ public class CookieAuthService implements AuthService {
     }
 
     @Override
-    public User logIn(String login, String password) throws InvalidPasswordException, NoSuchUserException, InternalServerError {
+    public User logIn(String login, String password) throws InvalidPasswordException, NoSuchUserException, ApplicationException {
         Optional<AuthUser> authUser = usersRepository.findByLogin(login);
 
         if (!authUser.isPresent()) throw new NoSuchUserException();
@@ -41,13 +41,13 @@ public class CookieAuthService implements AuthService {
     }
 
     @Override
-    public User signUp(String login, String password) throws UserAlreadyExistsException, InternalServerError {
+    public User signUp(String login, String password, boolean isAdmin) throws UserAlreadyExistsException, ApplicationException {
 
         Optional<AuthUser> user = usersRepository.findByLogin(login) ;
 
         if (user.isPresent()) throw new UserAlreadyExistsException();
 
-        AuthUser newUser = new AuthUser(login, password);
+        AuthUser newUser = new AuthUser(login, password, isAdmin);
         usersRepository.save(newUser);
 
         return new User(newUser);

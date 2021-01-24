@@ -15,7 +15,13 @@ public class SquareBoard<V> extends Board<Key, V> {
     public void fillBoard(List<V> list) {
         if (list.size() > size * size) {
             throw new IllegalArgumentException(
-                    String.format("Размер списка для инциализации игрового поля (%d) больше размера игрового поля (%d)", list.size(), size * size));
+                    String.format("Размер списка для инциализации игрового поля (%d) больше размера игрового поля (%d)",
+                            list.size(), size * size));
+        }
+        else if (list.size() < size * size) {
+            throw new IllegalArgumentException(
+                    String.format("Размер списка для инциализации игрового поля (%d) меньше размера игрового поля (%d)",
+                            list.size(), size * size));
         }
 
         super.board.clear();
@@ -34,7 +40,7 @@ public class SquareBoard<V> extends Board<Key, V> {
                 .collect(Collectors.toList());
     }
 
-    void addItem(Key key, V value) {
+    public void addItem(Key key, V value) {
         super.board.put(key, value);
     }
 

@@ -1,4 +1,4 @@
 package com.company.common.exceptions;
 
-public class RepositoryException extends InternalServerError {
+public class RepositoryException extends ApplicationException {
 }

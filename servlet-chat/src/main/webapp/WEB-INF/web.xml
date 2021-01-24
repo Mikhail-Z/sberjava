@@ -25,11 +25,15 @@
         <load-on-startup>0</load-on-startup>
     </servlet>
 
+    <filter>
+        <filter-name>cookieFilter</filter-name>
+        <filter-class>com.company.auth.filters.CookieFilter</filter-class>
+    </filter>
+
     <servlet-mapping>
         <servlet-name>messagesServlet</servlet-name>
         <url-pattern>/messages</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/auth/login</url-pattern>
@@ -42,4 +46,10 @@
         <servlet-name>signupServlet</servlet-name>
         <url-pattern>/auth/signup</url-pattern>
     </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>cookieFilter</filter-name>
+        <servlet-name>messagesServlet</servlet-name>
+    </filter-mapping>
+
 </web-app>

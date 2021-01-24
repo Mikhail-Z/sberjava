@@ -6,7 +6,7 @@ import com.company.auth.services.AuthService;
 import com.company.auth.services.implementations.CookieAuthService;
 import com.company.auth.utils.AuthUtils;
 import com.company.chat.model.User;
-import com.company.common.exceptions.InternalServerError;
+import com.company.common.exceptions.ApplicationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
     private final AuthService authService = CookieAuthService.getInstance();
     private static final String VIEW_PATH = "/login.jsp";
 
-    public LoginServlet() throws InternalServerError {
+    public LoginServlet() throws ApplicationException {
         super();
     }
 
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
         catch (NoSuchUserException e) {
             req.setAttribute("errorMessage", "no such user");
             req.getRequestDispatcher(VIEW_PATH).forward(req, resp);
-        } catch (InternalServerError internalServerError) {
+        } catch (ApplicationException internalServerError) {
             req.setAttribute("errorMessage", "internal server error");
             req.getRequestDispatcher(VIEW_PATH).forward(req, resp);
         }

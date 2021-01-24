@@ -1,5 +1,7 @@
 package com.company.core;
 
+import java.util.List;
+
 public interface Game {
     void init();
     boolean canMove();

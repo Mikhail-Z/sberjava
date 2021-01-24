@@ -24,7 +24,7 @@ public abstract class Board<K, V> {
     public abstract List<K> availableSpace();
 
     /** Добавляем элемент {@param value} по ключу {@param key}. */
-    abstract void addItem(K key, V value);
+    public abstract void addItem(K key, V value);
 
     /** Ищем уже существующий ключ по координатам {@param i} {@param j}. */
     public abstract K getKey(int i, int j);

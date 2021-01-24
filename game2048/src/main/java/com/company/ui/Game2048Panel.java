@@ -14,7 +14,7 @@ public class Game2048Panel extends JPanel {
     private static final int TILE_SIZE = 64;
     private static final int TILES_MARGIN = 16;
 
-    private final Game game = new Game2048();
+    private final Game game = new Game2048(new SquareBoard<>(Game2048.GAME_SIZE), new GameHelper());
     private boolean myWin;
     private boolean myLose;
 
