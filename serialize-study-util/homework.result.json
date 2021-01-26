@@ -1,0 +1,62 @@
+{
+  "version" : "1",
+  "parameters" : [ {
+    "name" : "alpha",
+    "description" : "some star",
+    "isList" : true,
+    "roles" : [ "ADMIN", "USER" ],
+    "bundles" : [ {
+      "paths" : [ {
+        "code" : "SUCCESS",
+        "value" : "200"
+      }, {
+        "code" : "FAILURE",
+        "value" : "400"
+      } ],
+      "values" : [ "some value" ]
+    } ],
+    "type" : "BOOLEAN"
+  }, {
+    "name" : "omega",
+    "description" : "some another star",
+    "isList" : true,
+    "roles" : [ "ADMIN" ],
+    "bundles" : [ {
+      "paths" : [ {
+        "code" : "SUCCESS",
+        "value" : "201"
+      }, {
+        "code" : "FAILURE",
+        "value" : "403"
+      } ],
+      "values" : [ "some another value" ]
+    } ],
+    "type" : "STRING"
+  }, {
+    "name" : "teta",
+    "description" : "some star 3",
+    "isList" : true,
+    "roles" : [ "USER" ],
+    "bundles" : [ {
+      "paths" : [ {
+        "code" : "SUCCESS",
+        "value" : "204"
+      } ],
+      "values" : [ "some value 3" ]
+    } ],
+    "type" : "BOOLEAN"
+  }, {
+    "name" : "gamma",
+    "description" : "some star 4",
+    "isList" : true,
+    "roles" : [ "ROOT" ],
+    "bundles" : [ {
+      "paths" : [ {
+        "code" : "FAILURE",
+        "value" : "404"
+      } ],
+      "values" : [ "some value 4" ]
+    } ],
+    "type" : "BOOLEAN"
+  } ]
+}
