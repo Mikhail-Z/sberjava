@@ -1,5 +1,6 @@
 package task01_05;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import task01_05.HelloWorldAnnotation;
