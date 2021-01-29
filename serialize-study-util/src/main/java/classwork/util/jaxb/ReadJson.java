@@ -1,13 +1,14 @@
 package classwork.util.jaxb;
 
 import classwork.da.jaxb.JaxbSerializeWriter;
-import classwork.da.jaxb.JsonJaxbReader;
+//import classwork.da.jaxb.JsonJaxbReader;
 
 import java.io.IOException;
 
 /**
  * Чтение из файла objects_data.json и запись сериализации в файл temp.jaxb.out
  * */
+/*
 public class ReadJson {
 
     public static final String SOURCE_FILE = "objects_data.json";
@@ -24,4 +25,4 @@ public class ReadJson {
         new JaxbSerializeWriter().customSerializeWriter(srcData, RESULT_FILE);
     }
 
-}
+}*/

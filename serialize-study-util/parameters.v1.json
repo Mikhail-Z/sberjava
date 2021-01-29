@@ -80,6 +80,24 @@
         }
       ],
       "type": "BOOLEAN"
+    },
+    {
+      "name": "sigma",
+      "description": "some star 5",
+      "isList": true,
+      "roles": ["USER"],
+      "bundles": [
+        {
+          "paths": [
+            {
+              "code": "FAILURE",
+              "value": "503"
+            }
+          ],
+          "values": ["some value 5"]
+        }
+      ],
+      "type": "BOOLEAN"
     }
   ]
 }

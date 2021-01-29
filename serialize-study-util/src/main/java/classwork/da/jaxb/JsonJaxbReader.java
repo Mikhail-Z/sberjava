@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 
+/*
 public class JsonJaxbReader {
 
     public Fallback read(String url) throws IOException {
@@ -15,3 +16,4 @@ public class JsonJaxbReader {
     }
 
 }
+*/
