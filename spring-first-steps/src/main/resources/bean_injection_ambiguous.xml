@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean name="school" class="bean_injection_ambiguous.xml.">
+        <constructor-arg name="number" value="1"/>
+        <constructor-arg name="pupils">
+            <list>
+                <ref bean="pupil"/>
+                <ref bean="pupil"/>
+                <ref bean="pupil"/>
+            </list>
+        </constructor-arg>
+        <property name="name" value="Гимназия"/>
+    </bean>
+    <bean name="pupil" class="dependency_injection.xml.Pupil">
+        <constructor-arg name="age" value="7"/>
+        <constructor-arg name="name" value="mike"/>
+    </bean>
+</beans>
