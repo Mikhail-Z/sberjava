@@ -1,12 +1,11 @@
-package task01_05;
+package task01_05.annotation;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component
-@Scope("singleton")
+
 public interface LoggerAnnotation {
     void writeInfo(String message);
     void writeWarn(String message);

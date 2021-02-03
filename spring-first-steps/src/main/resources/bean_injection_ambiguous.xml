@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean name="school" class="bean_injection_ambiguous.xml.">
+    <bean name="school" class="dependency_injection.xml.School">
         <constructor-arg name="number" value="1"/>
         <constructor-arg name="pupils">
             <list>

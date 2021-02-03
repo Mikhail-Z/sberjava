@@ -1,7 +1,8 @@
-package task01_05.my_bean;
+package task01_05.my_scope;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
+import org.springframework.context.support.SimpleThreadScope;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,11 +16,13 @@ public class MyScope implements Scope {
 
     @Override
     public Object get(String s, ObjectFactory<?> objectFactory) {
-        if (!scopedObjects.containsKey(s)) {
+        /*if (!scopedObjects.containsKey(s)) {
             scopedObjects.put(s, objectFactory.getObject());
-        }
+        }*/
 
-        return scopedObjects.get(s);
+        //return scopedObjects.get(s);
+
+        return objectFactory.getObject();
     }
 
     @Override

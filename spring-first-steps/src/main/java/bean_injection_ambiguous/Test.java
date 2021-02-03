@@ -2,6 +2,7 @@ package bean_injection_ambiguous;
 
 import bean_injection_ambiguous.annotation.ContextConfiguration;
 import bean_injection_ambiguous.annotation.SomeDependantBean;
+import org.springframework.beans.factory.Aware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Test {

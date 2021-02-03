@@ -1,8 +1,13 @@
-package task01_05;
+package task01_05.annotation;
 
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Scope("prototype")
+@Component
 public class ConsoleLoggerAnnotation implements LoggerAnnotation {
 
     private final UUID uuid = UUID.randomUUID();

@@ -1,4 +1,4 @@
-package task01_05.my_bean;
+package task01_05.my_scope;
 
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,4 @@
-package task01_05;
-
-import org.springframework.stereotype.Component;
+package task01_05.xml;
 
 public class ConsoleXmlLogger implements LoggerXml {
 

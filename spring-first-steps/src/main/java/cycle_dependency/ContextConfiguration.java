@@ -1,7 +1,6 @@
 package cycle_dependency;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -10,11 +9,11 @@ public class ContextConfiguration {
 
     @Bean
     public LoggerBean logger() {
-        return new LoggerBean("app", 1);
+        return new LoggerBean();
     }
 
-    /*@Bean
+    @Bean
     public BusinessServiceBean service() {
-        return new BusinessServiceBean( "api", 10, logger());
-    }*/
+        return new BusinessServiceBean();
+    }
 }

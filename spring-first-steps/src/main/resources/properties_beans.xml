@@ -4,11 +4,11 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="classpath:my.properties"/>
 
-
-    <bean id="helloWorld" class="task01_05.xml.HelloWorldXml" />
-
-    <bean id="helloWorldFactory" class="task01_05.xml.HelloWorldXmlFactory"/>
-    <bean id="helloWorld" factory-bean="helloWorldFactory" factory-method="create"/>
-    <bean id="helloWorld" class="task01_05.xml.HelloWorldXml" factory-method="create" />
+    <bean name="apiClient" class="properties.xml.ApiClient">
+        <constructor-arg name="login" value="${apiClient.login}"/>
+        <constructor-arg name="password" value="${apiClient.password}"/>
+        <constructor-arg name="host" value="${apiClient.host}"/>
+    </bean>
 </beans>

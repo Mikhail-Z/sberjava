@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//@Component
+@Component
 public class School {
     private int number;
     private String name = "Гоcударственная общеобразовательная школа";

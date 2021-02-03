@@ -1,4 +1,4 @@
-package task01_05;
+package task01_05.xml;
 
 public interface LoggerXml {
     void writeInfo(String message);

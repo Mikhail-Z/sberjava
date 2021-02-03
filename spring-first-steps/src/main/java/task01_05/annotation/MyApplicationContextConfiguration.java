@@ -1,4 +1,4 @@
-package task01_05;
+package task01_05.annotation;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,7 +13,6 @@ public class MyApplicationContextConfiguration {
         return new HelloWorldAnnotation(logger());
     }*/
 
-    @Bean
     public LoggerAnnotation logger() {
         return new ConsoleLoggerAnnotation();
     }

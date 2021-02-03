@@ -1,4 +1,6 @@
-package task01_05.my_bean;
+package task01_05.my_scope;
+
+import org.springframework.context.annotation.Scope;
 
 public class MyBean {
     private final String name;

@@ -1,11 +1,9 @@
 package task01_05;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import task01_05.HelloWorldAnnotation;
-import task01_05.LoggerAnnotation;
-import task01_05.MyApplicationContextConfiguration;
+import task01_05.annotation.HelloWorldAnnotation;
+import task01_05.annotation.LoggerAnnotation;
+import task01_05.annotation.MyApplicationContextConfiguration;
 
 public class Test {
     public static void main(String[] args) {
@@ -15,13 +13,8 @@ public class Test {
         AnnotationConfigApplicationContext annotationCtx = new AnnotationConfigApplicationContext(
                 MyApplicationContextConfiguration.class);
         HelloWorldAnnotation helloWorldAnnotation1 = annotationCtx.getBean(HelloWorldAnnotation.class);
-        HelloWorldAnnotation helloWorldAnnotation2 = annotationCtx.getBean(HelloWorldAnnotation.class);
-        LoggerAnnotation loggerAnnotation1 = annotationCtx.getBean(LoggerAnnotation.class);
-        LoggerAnnotation loggerAnnotation2 = annotationCtx.getBean(LoggerAnnotation.class);
+        helloWorldAnnotation1.print();
         System.out.printf("helloWorld hashCode is always different because of prototype: %s\n", helloWorldAnnotation1);
-        System.out.printf("helloWorld hashCode is always different because of prototype: %s\n", helloWorldAnnotation2);
-        System.out.printf("logger bean hashCode is always the same because of singleton: %s\n", loggerAnnotation1);
-        System.out.printf("logger bean hashCode is always the same because of singleton: %s\n", loggerAnnotation2);
         //!!! если бину логгера поставить prototype, а helloWorld -- singleton, то
 
         /*Trash.Service svc = xmlCtx.getBean(Trash.Service.class);
@@ -33,6 +26,6 @@ public class Test {
         System.out.println(svc.getName());
         System.out.println(svc.getRepo());*/
 
-        //task01_05.HelloWorldXml helloWorld = xmlCtx.getBean(task01_05.HelloWorldXml.class);
+        //task01_05.xml.HelloWorldXml helloWorld = xmlCtx.getBean(task01_05.xml.HelloWorldXml.class);
     }
 }
