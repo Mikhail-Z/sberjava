@@ -12,6 +12,8 @@ import credit_application_history.infrastructure.services.MonitoringService;
 import java.util.UUID;
 
 public class Main {
+    
+    
     public static void main(String[] args) {
         LogService logService = new LogService();
         MonitoringService monitoringService = new MonitoringService();
