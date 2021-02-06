@@ -7,6 +7,8 @@ import com.example.messagesapiboot.models.dto.MessageIdDto;
 import com.example.messagesapiboot.models.dto.SettingsDto;
 import com.example.messagesapiboot.providers.SettingsProvider;
 import com.example.messagesapiboot.services.MessageService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,14 +26,24 @@ public class MessageController {
     }
 
     @PostMapping("saveMessage")
-    public String saveMessage(@RequestBody MessageDto message) throws AppException {
-        UUID messageId = messageService.save(message.toEntity());
-        return messageId.toString();
+    public ResponseEntity<String> saveMessage(@RequestBody MessageDto message) throws AppException {
+        try {
+            UUID messageId = messageService.save(message.toEntity());
+            return ResponseEntity.ok(messageId.toString());
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("getMessage")
-    public MessageDto getMessage(@RequestBody MessageIdDto messageId) throws AppException {
-        return MessageDto.fromEntity(messageService.get(messageId.getId()));
+    public ResponseEntity<MessageDto> getMessage(@RequestBody MessageIdDto messageId) throws AppException {
+        try {
+            return ResponseEntity.ok(MessageDto.fromEntity(messageService.get(messageId.getId())));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("getSettings")

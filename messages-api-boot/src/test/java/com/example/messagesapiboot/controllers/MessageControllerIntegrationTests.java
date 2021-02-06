@@ -3,7 +3,11 @@ package com.example.messagesapiboot.controllers;
 import com.example.messagesapiboot.controllers.MessageController;
 
 import com.example.messagesapiboot.infrastructure.exceptions.AppException;
+import com.example.messagesapiboot.models.dto.MessageDto;
+import com.example.messagesapiboot.providers.SettingsProvider;
 import com.example.messagesapiboot.services.MessageService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -20,12 +24,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 @ExtendWith(SpringExtension.class)
@@ -33,41 +39,33 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class    MessageControllerIntegrationTests {
     @Autowired
     private MockMvc mvc;
-
     @MockBean
     private MessageService service;
+    @MockBean
+    SettingsProvider settingsProvider;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void test_saveMessage_whenSuccess() throws Exception {
         UUID returnedUuid = UUID.randomUUID();
+        MessageDto body = new MessageDto("some text");
         given(service.save(Mockito.any())).willReturn(returnedUuid);
-        mvc.perform(get("/getMessage").contentType(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk())
-                .andExpect(content().string(returnedUuid.toString()));
+        mvc.perform(post("/saveMessage")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(body)))
+            .andExpect(content().contentType("text/plain;charset=utf-8"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(returnedUuid.toString()));
     }
 
     @Test
-    public void test_saveMessage_whenFailure() {
-
-    }
-
-    @Test
-    public void test_getMessage_whenSuccess() {
-
-    }
-
-    @Test
-    public void test_getMessage_whenFailure() {
-
-    }
-
-    @Test
-    public void test_getSettings_whenSuccess() {
-
-    }
-
-    @Test
-    public void test_getSettings_whenFailure() {
-
+    public void test_saveMessage_whenFailure() throws Exception {
+        MessageDto body = new MessageDto("some text");
+        given(service.save(Mockito.any())).willThrow(new AppException());
+        mvc.perform(post("/saveMessage")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(body)))
+            .andExpect(status().isInternalServerError());
     }
 }
