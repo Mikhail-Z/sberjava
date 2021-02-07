@@ -16,10 +16,8 @@ import java.util.UUID;
 @Profile("local")
 public class InmemoryMessageRepository implements MessageRepository {
     private final Map<UUID, Message> messages = new HashMap<>();
-    //@Resource
-    //public Environment environment;
+
     public void save(UUID id, Message message) {
-        //String env = this.environment.getProperty("spring.profiles.active");
         messages.put(id, message);
     }
 

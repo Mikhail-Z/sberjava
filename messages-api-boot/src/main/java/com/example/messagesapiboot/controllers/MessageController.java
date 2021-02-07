@@ -36,10 +36,10 @@ public class MessageController {
         }
     }
 
-    @GetMapping("getMessage")
-    public ResponseEntity<MessageDto> getMessage(@RequestBody MessageIdDto messageId) throws AppException {
+    @GetMapping("getMessage/{id}")
+    public ResponseEntity<MessageDto> getMessage(@RequestParam("id") String messageId) throws AppException {
         try {
-            return ResponseEntity.ok(MessageDto.fromEntity(messageService.get(messageId.getId())));
+            return ResponseEntity.ok(MessageDto.fromEntity(messageService.get(messageId)));
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

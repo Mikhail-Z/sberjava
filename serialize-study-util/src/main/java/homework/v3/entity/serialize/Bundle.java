@@ -5,16 +5,10 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.List;
 
-class A {
-
-}
-
 @JsonPropertyOrder({"paths", "values"})
 public class Bundle implements Serializable {
     
     public static final long SerialVersionUID = 1L;
-
-    private A a;
 
     private List<Path> paths;
     private List<String> values;

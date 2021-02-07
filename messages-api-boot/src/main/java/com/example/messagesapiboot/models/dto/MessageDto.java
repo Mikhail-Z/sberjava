@@ -4,18 +4,19 @@ import com.example.messagesapiboot.models.entities.Message;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MessageDto {
-    private String text;
+    @JsonProperty("text_some")
+    private String textSome;
 
-    public MessageDto(@JsonProperty("text") String text) {
-        this.text = text;
+    public MessageDto(@JsonProperty("text_some") String textSome) {
+        this.textSome = textSome;
     }
 
-    public String getText() {
-        return text;
+    public String getTextSome() {
+        return textSome;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTextSome(String textSome) {
+        this.textSome = textSome;
     }
 
     public static MessageDto fromEntity(Message message) {
@@ -23,6 +24,6 @@ public class MessageDto {
     }
 
     public Message toEntity() {
-        return new Message(text);
+        return new Message(textSome);
     }
 }
