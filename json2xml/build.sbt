@@ -15,8 +15,12 @@ libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.12.1"
 
 
 libraryDependencies ++= Seq(
-  /*"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.1.3",*/
   json4sNative,
   json4sJackson,
   xmlLib,
 )
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}

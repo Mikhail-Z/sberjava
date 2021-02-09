@@ -4,7 +4,6 @@ import models.JsonFileClass
 import org.json4s._
 import org.json4s.jackson._
 
-import scala.xml._
 
 object JsonToXmlConverter {
   implicit val formats = DefaultFormats
@@ -23,9 +22,4 @@ object JsonToXmlConverter {
   def saveToXml(jsonFileClass: JsonFileClass, filePath: String): Unit = {
     scala.xml.XML.save(filePath, jsonFileClass.toXml)
   }
-
-
-  /*def json2Object[O](json: String)(implicit reader: Reader[O]) : O = {
-    parse(string2JsonInput(json)).asInstanceOf[O]
-  }*/
 }
