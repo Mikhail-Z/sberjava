@@ -3,6 +3,8 @@ package com.company.rdd.actions
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 
+import scala.Console.println
+
 /**
  * Рассмотрите код. Объясните результат работы каждого использованного action.
  */
@@ -15,9 +17,9 @@ object ActionsExample extends App {
 
   val inputWords = List("spark", "hadoop", "spark", "hive", "pig", "cassandra", "hadoop")
   val wordRdd = sc.parallelize(inputWords)
+  for (word <- wordRdd.cartesian(wordRdd)) println(word)
+  //for (newWord <- wordRdd.cartesian(wordRdd)) println(newWord)
 
-
-  println()
   println("-----------------")
   println("Collect example: ")
   val words = wordRdd.collect()
