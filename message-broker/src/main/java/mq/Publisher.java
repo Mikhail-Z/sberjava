@@ -28,6 +28,7 @@ public class Publisher {
             var message = session.createBytesMessage();
             message.writeBytes(data);
             message.setStringProperty("event", "create");
+
             producer.send(destination, message);
         }
     }

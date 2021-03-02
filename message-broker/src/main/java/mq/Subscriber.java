@@ -22,7 +22,7 @@ public class Subscriber implements ExceptionListener {
             Connection connection = connectionFactory.createConnection();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             Destination destination = session.createTopic(topic);
-            JMSConsumer consumer = ctx.createConsumer(destination);
+            JMSConsumer consumer = ctx.createConsumer(destination, "event = 'create'");
             consumer.setMessageListener(message -> {
                 try {
                     if (message == null) return;
@@ -41,6 +41,7 @@ public class Subscriber implements ExceptionListener {
                     e.printStackTrace();
                 }
             });
+            while (true);
         }
         catch (Exception e) {
             e.printStackTrace();
