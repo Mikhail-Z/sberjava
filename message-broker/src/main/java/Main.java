@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args) throws JMSException, JsonProcessingException {
         Subscriber subscriber = new Subscriber();
         Thread t1 = new Thread(() -> subscriber.subscribe("default"));
-        //Thread t2 = new Thread(() -> subscriber.subscribe("default"));
+        Thread t2 = new Thread(() -> subscriber.subscribe("default"));
         t1.start();
-        //t2.start();
+        t2.start();
 
         var publisher = new Publisher();
         for (int i = 0; i < 100; i++) {
@@ -25,7 +25,7 @@ public class Main {
 
         try {
             t1.join();
-            //t2.join();
+            t2.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
             return;

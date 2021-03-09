@@ -24,11 +24,10 @@ public class Publisher {
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             Destination destination = session.createTopic(topic);
             JMSProducer producer = ctx.createProducer();
-
             var message = session.createBytesMessage();
             message.writeBytes(data);
             message.setStringProperty("event", "create");
-
+            message.setJMSRedelivered(true);
             producer.send(destination, message);
         }
     }

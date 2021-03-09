@@ -36,7 +36,7 @@ public class Subscriber implements ExceptionListener {
                     } else {
                         System.out.println("Received: " + message);
                     }
-                    message.acknowledge();
+                    //message.acknowledge();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
